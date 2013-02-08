@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using MibDatalayer;
-
+using SampleDatalayer;
+using SampleModel;
+using System.Data.SqlClient;
 namespace Tests
 {
     [TestFixture]
@@ -16,33 +18,28 @@ namespace Tests
         [TestFixtureSetUp]
         public void Setup()
         {
-            this.Fixtures = new Dictionary<string, dynamic>();
-            //this.Fixtures.Add("song", new Song() { Title = "Violet Hills" });
-
-            using (var context = new DataBase.TestDbContext())
+            var blog = new Blog()
             {
-                context.Database.CreateIfNotExists();
-                context.Songs.Add(new Song() { Id = 1, Title = "Violet Hills" });
-                context.SaveChanges();
-            }
+                Title = "My Blog"
+            };
+            BlogRepository repo = new BlogRepository();
+            repo.Save(blog);
         }
 
         [TestFixtureTearDown]
         public void TearDown()
         {
-            using (var context = new DataBase.TestDbContext())
-            {
-                //context.Songs.Remove(context.Songs.Find());
-                context.Database.Delete();
-            }
+            
         }
 
         [Test]
         public void FindByIdTest()
         {
-            DbRepository<Song> repo = new DbRepository<Song>();
-            Song song = repo.FindById(1);
-            Assert.AreEqual(song.Title, Fixtures["Song"].Title);
+
+
+            BlogRepository repo = new BlogRepository();
+            Blog blog = repo.FindById(1);
+            Assert.AreEqual(blog.Title, "My Blog");
         }
     }
 }

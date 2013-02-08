@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{44840DE6-173D-4433-A80E-376D5962F844}</ProjectGuid>
+    <ProjectGuid>{732B8ED8-C5D1-4309-A3C3-032856453816}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MibDatalayer</RootNamespace>
-    <AssemblyName>MibDatalayer</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>SampleDatalayer</RootNamespace>
+    <AssemblyName>SampleDatalayer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -42,13 +44,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbConfiguration.cs" />
-    <Compile Include="DbRepository.cs" />
-    <Compile Include="IRepository.cs" />
+    <Compile Include="BlogRepository.cs" />
+    <Compile Include="Migrations\201212141606363_CreateBlogsTable.cs" />
+    <Compile Include="Migrations\201212141606363_CreateBlogsTable.Designer.cs">
+      <DependentUpon>201212141606363_CreateBlogsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleDbContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MibDatalayer\MibDatalayer.csproj">
+      <Project>{44840de6-173d-4433-a80e-376d5962f844}</Project>
+      <Name>MibDatalayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SampleModel\SampleModel.csproj">
+      <Project>{1a54da52-6e86-4473-8c51-774c693b9218}</Project>
+      <Name>SampleModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201212141606363_CreateBlogsTable.resx">
+      <DependentUpon>201212141606363_CreateBlogsTable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

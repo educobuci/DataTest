@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tests.DataBase
+namespace SampleDatalayer
 {
-    class TestDbContext:DbContext
+    public class SampleDbContext:DbContext
     {
-        public DbSet<Song> Songs { get; set; }
     }
 }
